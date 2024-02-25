@@ -1,0 +1,104 @@
+@import url("modern-normalize/modern-normalize.css");
+
+:root {
+  /* Typography */
+  --font-sans: "Inter", sans-serif;
+
+  /* Color scheme */
+  color-scheme: light;
+
+  /* Colors */
+  --color-base-black: #000;
+  --color-base-white: #fff;
+
+  /* Primary */
+  --color-primary-50: #eff4ff;
+  --color-primary-100: #d1e0ff;
+  --color-primary-200: #b2ddff;
+  --color-primary-300: #84adff;
+  --color-primary-600: #155eef;
+  --color-primary-700: #004eeb;
+  --color-primary-800: #0040c1;
+
+  /* Gray */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f2f4f7;
+  --color-gray-200: #eaecf0;
+  --color-gray-300: #d0d5dd;
+  --color-gray-500: #667085;
+  --color-gray-600: #475467;
+  --color-gray-700: #344054;
+  --color-gray-800: #1d2939;
+  --color-gray-900: #101828;
+
+  /* Error */
+  --color-error-50: #fef3f2;
+  --color-error-100: #fee4e2;
+  --color-error-300: #fda29b;
+  --color-error-500: #f04438;
+  --color-error-600: #d92d20;
+
+  --font-display-xs-semibold: 600 24px/32px var(--font-sans);
+
+  --font-display-md-semibold: 600 36px/44px var(--font-sans);
+
+  --font-text-lg-regular: 400 18px/28px var(--font-sans);
+  --font-text-lg-semibold: 600 18px/28px var(--font-sans);
+  --font-text-lg-bold: 700 18px/28px var(--font-sans);
+
+  --font-text-md-regular: 400 16px/24px var(--font-sans);
+  --font-text-md-medium: 500 16px/24px var(--font-sans);
+  --font-text-md-semibold: 600 16px/24px var(--font-sans);
+
+  --font-text-sm-regular: 400 14px/20px var(--font-sans);
+  --font-text-sm-medium: 500 14px/20px var(--font-sans);
+  --font-text-sm-semibold: 600 14px/20px var(--font-sans);
+
+  --shadow-xs: 0px 1px 2px rgb(16 24 40 / 5%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root {
+  height: 100%;
+  isolation: isolate;
+}
