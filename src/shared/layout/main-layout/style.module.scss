@@ -1,18 +1,16 @@
 .main {
   position: relative;
-
   min-height: 100vh;
-
 }
 
 .main::before {
   content: "";
   opacity: 0.7;
   background-image: url("../../assets/img/talgata.jpg");
-  background-color:rgb(26, 31, 41);
+  background-color:black;
   background-blend-mode: luminosity;
   background-size: cover;
-  background-position: 60% 100%;
+  background-position: 60% 0;
   top: 0;
   left: 0;
   right: 0;
