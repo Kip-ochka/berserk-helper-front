@@ -1,0 +1,69 @@
+.label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  border: 0 solid transparent;
+}
+
+.outer {
+  display: flex;
+  align-items: center;
+  border: var(--border-main);
+  background: var(--gradient-dark);
+  height: 30px;
+  min-width: 65px;
+  border-radius: 16px;
+  position: relative;
+  transition: var(--transition);
+
+  &_active {
+    transition: var(--transition);
+    background: var(--purple-main);
+    border: var(--border-inactive);
+  }
+
+  &_disable {
+    background: var( --purple-dark);
+  }
+}
+
+.inner {
+  position: absolute;
+  border-radius: 50%;
+  height: 24px;
+  background: var(--white);
+  width: 24px;
+  left: 2px;
+  transition: var(--transition);
+
+  &_active {
+    transition: var(--transition);
+    left: calc(100% - 26px)
+  }
+  &_disable {
+    background: var(--secondary);
+  }
+}
+
+.fromToElement {
+  position: absolute;
+  font-size: 14px;
+  left: 32px;
+
+  &_active {
+    left: 10px;
+  }
+  &_disable {
+    color: var(--secondary);
+  }
+}

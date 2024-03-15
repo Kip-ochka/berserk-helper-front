@@ -1,11 +1,9 @@
-import { MainLayout } from "@/shared/layout/main-layout/MainLayout.tsx";
+import { RouterProvider } from "react-router-dom";
+
+import { router } from "@/app/router.tsx";
 
 import "./styles/index.css";
 
 export const App = () => {
-  return (
-    <MainLayout>
-      <p>test</p>
-    </MainLayout>
-  );
+  return <RouterProvider router={router} />;
 };

@@ -1,0 +1,32 @@
+.dice {
+  background: transparent;
+  border: none;
+  width: 140px;
+  height: 140px;
+  padding: 0;
+  &:active {
+    svg path{
+      fill: var(--purple-dark)
+    }
+  }
+}
+
+@-webkit-keyframes rotating{
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  animation: rotating 1s linear infinite;
+}

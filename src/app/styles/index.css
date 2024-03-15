@@ -5,11 +5,30 @@
   --font-sans: "Inter", sans-serif;
 
   /* Color scheme */
-  color-scheme: light;
+  color-scheme: light dark;
 
   /* Colors */
-  --color-base-black: #000;
-  --color-base-white: #fff;
+  --black: #000;
+  --white: #fff;
+  --secondary: #EBEBF560;
+  --tetrary: #EBEBF530;
+  --quatrary: #EBEBF518;
+  --transition: 0.3s;
+
+  --inactive-widget-background: #48319D33;
+  --active-widget-background: #48319D;
+  --shadow: 5px 4px 10px 0 #00000040;
+
+  --gradient-dark: linear-gradient(167.57deg, #2E335A -4.68%, #1C1B33 95.45%);
+  --gradient-main: linear-gradient(90deg, #5936B4 0%, #362A84 103.55%);
+  --gradient-light: radial-gradient(73.23% 106% at 34.94% 108.33%, #F7CBFD 0%, #7758D1 100%);
+  --gradient-light-alternative: linear-gradient(90deg, #427BD1 1.95%, #C159EC 101.56%);
+
+  --purple-dark: #1F1D47;
+  --purple-main: #48319D;
+  --purple-accent: #C427FB;
+  --border-inactive: 1px solid #FFFFFF33;
+  --border-main: 1px solid #7B61FF;
 
   /* Primary */
   --color-primary-50: #eff4ff;
@@ -102,3 +121,4 @@ h6 {
   height: 100%;
   isolation: isolate;
 }
+

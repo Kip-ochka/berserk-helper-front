@@ -1,0 +1,122 @@
+.battleSection {
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.gamerField {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-direction: column;
+
+  &_second {
+    transform: rotate(180deg);
+  }
+}
+
+.playerButtons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.modifierButton {
+  padding: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border: var(--border-main);
+  border-radius: 50%;
+}
+
+.modifier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: var(--font-text-lg-bold);
+  border-radius: 50%;
+  background: var(--gradient-light-alternative);
+  width: 36px;
+  height: 36px;
+}
+
+.centralField {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.attackerSelect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-direction: column;
+
+  svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.rotatedIcon {
+  transform: rotate(180deg);
+}
+
+.switch {
+  transform: rotate(270deg);
+}
+
+.battleButton {
+  background: transparent;
+  border: 4px solid white;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: var(--font-text-lg-bold);
+  transition: 0.5s;
+
+  &:active {
+    border-color: var(--purple-dark);
+    color: var(--purple-dark);
+  }
+
+  justify-self: center;
+  align-self: center;
+
+}
+
+.bothPlayerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.resultFields {
+min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &_rotated {
+    transform: rotate(180deg);
+  }
+}
+.result {
+  font: var(--font-text-md-semibold);
+  text-align: center;
+  white-space: nowrap;
+}

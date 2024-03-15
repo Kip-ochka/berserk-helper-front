@@ -1,0 +1,19 @@
+.smallWidget {
+  background-color: var(--gradient-main);
+  box-shadow: var(--shadow);
+  height: 140px;
+  width: 60px;
+  border-radius: 30px;
+  border: var(--border-inactive);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+
+  &_activeState {
+    border: var(--border-main);
+  }
+  &:hover{
+
+  }
+}
