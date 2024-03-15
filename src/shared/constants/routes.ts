@@ -1,3 +1,3 @@
 export const ROUTES_PATHS = {
-  MAIN: "/",
+  BATTLE: "/",
 } as const;

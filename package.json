@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "effector": "^23.2.0",
+    "effector-react": "^23.2.0",
     "modern-normalize": "^2.0.0",
+    "patronum": "^2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",

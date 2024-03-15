@@ -1,26 +1,11 @@
-import { Switch } from "@/shared/ui/switch";
+import { Link } from "react-router-dom";
+
+import { ROUTES_PATHS } from "@/shared/constants/routes.ts";
 
 export const Main = () => {
   return (
-    <div
-      style={{
-        margin: "50px 0 0 0",
-        height: "60px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "1px solid white",
-        borderRadius: "8px",
-      }}
-    >
-      <Switch
-        leftLabel={"Ты первый игрок?"}
-        fromElement={"Нет"}
-        toElement={"Да"}
-        onChange={(e) => {
-          console.log(e.currentTarget.checked);
-        }}
-      />
-    </div>
+    <main>
+      <Link to={ROUTES_PATHS.BATTLE}>К бою</Link>
+    </main>
   );
 };
