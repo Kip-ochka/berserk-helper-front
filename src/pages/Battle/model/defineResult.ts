@@ -6,7 +6,6 @@ import {
 } from "@/pages/Battle/model/types.ts";
 
 const notOppositeRoll = (attackValue: number): ResultPattern => {
-  console.log(attackValue);
   switch (true) {
     case attackValue > 5:
       return {

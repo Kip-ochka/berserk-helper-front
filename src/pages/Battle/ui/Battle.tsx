@@ -22,7 +22,6 @@ import {
 import { ArrowButton } from "@/shared/ui/arrow-button/ui/ArrowButton.tsx";
 import { DiceButton } from "@/shared/ui/dice-button";
 import { Timer } from "@/shared/ui/dice-button/ui/DiceButton.tsx";
-import { Switch } from "@/shared/ui/switch";
 
 import Axe from "../../../shared/assets/svg/battle/axe.svg?react";
 import Shield from "../../../shared/assets/svg/battle/shield.svg?react";
@@ -108,19 +107,16 @@ export const Battle = () => {
       </div>
 
       <div className={cn(style.centralField)}>
-        <div className={cn(style.attackerSelect)}>
+        <button onClick={onChangeAttacker} className={cn(style.attackerSelect)}>
           {isFirstAttack ? (
             <Shield className={style.rotatedIcon} />
           ) : (
             <Axe className={style.rotatedIcon} />
           )}
-          <Switch
-            onClick={onChangeAttacker}
-            classNames={{ label: style.switch }}
-            checked={!isFirstAttack}
-          />
+
           {isFirstAttack ? <Axe /> : <Shield />}
-        </div>
+        </button>
+
         <div className={style.bothPlayerSection}>
           <button
             onClick={battleBegan ? handleResetClick : handleBothClick}

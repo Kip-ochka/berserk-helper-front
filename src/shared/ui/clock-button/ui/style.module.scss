@@ -1,0 +1,12 @@
+.clockButton {
+  border: none;
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  padding: 0;
+  &:active {
+    svg path {
+      fill: var(--purple-dark)
+    }
+  }
+}
