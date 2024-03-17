@@ -5,7 +5,7 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  min-height: 100vh;
+  height: 100%;
 }
 
 .gamerField {
@@ -56,11 +56,15 @@
 }
 
 .attackerSelect {
+  padding: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
   flex-direction: column;
+  background: transparent;
+  border: var(--border-main);
+  border-radius: 16px;
 
   svg {
     width: 50px;
@@ -106,17 +110,19 @@
 }
 
 .resultFields {
-min-height: 48px;
+  min-height: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   &_rotated {
     transform: rotate(180deg);
   }
 }
+
 .result {
   font: var(--font-text-md-semibold);
   text-align: center;
-  white-space: nowrap;
+
 }

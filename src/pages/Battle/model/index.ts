@@ -46,7 +46,13 @@ $secondDieModifier.on(
 );
 
 sample({
-  clock: [firstDiceRolled, secondDiceRolled, twoDicesRolled],
+  clock: [
+    firstDiceRolled,
+    secondDiceRolled,
+    twoDicesRolled,
+    firstModifierChange,
+    secondModifierChange,
+  ],
   source: {
     first: $firstDice,
     second: $secondDice,
