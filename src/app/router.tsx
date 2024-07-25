@@ -4,6 +4,7 @@ import { AppLoader } from "@/app/AppLoader.tsx";
 import { AppProvider } from "@/app/AppProvider.tsx";
 
 import { Battle } from "@/pages/Battle/ui/Battle.tsx";
+import { SquadCalculator } from "@/pages/SquadCalculator/ui/SquadCalculator.tsx";
 
 import { ROUTES_PATHS } from "@/shared/constants/routes.ts";
 import { MainLayout } from "@/shared/layout/main-layout";
@@ -17,6 +18,12 @@ export const router = createBrowserRouter([
         </AppProvider>
       </AppLoader>
     ),
-    children: [{ path: ROUTES_PATHS.BATTLE, element: <Battle /> }],
+    children: [
+      { path: ROUTES_PATHS.BATTLE, element: <Battle /> },
+      {
+        path: ROUTES_PATHS.CALCULATOR,
+        element: <SquadCalculator />,
+      },
+    ],
   },
 ]);

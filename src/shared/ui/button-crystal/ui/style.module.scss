@@ -1,0 +1,24 @@
+.button {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  min-width: 50px;
+  font: var(--font-text-lg-semibold);
+  font-family: inherit;
+  color: var(--black);
+  background-color: transparent;
+  border: none;
+  & span {
+    position: absolute;
+    left: 40%;
+    top: 20%;
+  }
+
+  & img {
+    min-width: 100%;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}

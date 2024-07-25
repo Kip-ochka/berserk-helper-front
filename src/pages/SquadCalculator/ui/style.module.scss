@@ -1,0 +1,86 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 10px;
+  gap: 10px;
+  font-family: serif;
+  text-align: center;
+}
+
+.text {
+  font: var(--font-text-lg-semibold);
+  font-family: serif;
+}
+
+.error {
+  color: var(--color-error-500);
+}
+
+.settings {
+  display: grid;
+  gap: 14px;
+}
+
+.distribution {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+}
+
+.elements {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.square {
+  display: block;
+  background-color: transparent;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0 8px;
+  font-size: 30px;
+  font-weight: 700;
+  border: 2px solid var(--white);
+  border-radius: 5px;
+  &:hover:not(p) {
+    cursor: pointer;
+  }
+  & input[type="radio"]:not(:checked) {
+    color: var(--color-gray-300);
+    border-color: var(--color-gray-500);
+  }
+}
+
+input:not(:checked) + .square {
+  color: var(--color-gray-300);
+  border-color: var(--color-gray-500);
+}
+
+.wallet {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+button.square:active {
+  transform: scale(0.9);
+}
+
+.crystal {
+  position: absolute;
+  right: auto;
+  bottom: 1%;
+}
+
+.list {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+}

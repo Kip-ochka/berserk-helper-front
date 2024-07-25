@@ -2,10 +2,13 @@ import { allSettled, fork } from "effector";
 import { Provider } from "effector-react";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider as ReduxProvider } from "react-redux";
 
 import { App } from "@/app";
 
 import { appStarted } from "@/shared/lib/init.ts";
+
+import { store } from "./store";
 
 const scope = fork();
 const root = document.getElementById("root") as HTMLElement;
@@ -15,9 +18,12 @@ allSettled(appStarted, { scope }).catch((reason) => {
 });
 
 ReactDOM.createRoot(root).render(
-  <Provider value={scope}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>,
+  <ReduxProvider store={store}>
+    <Provider value={scope}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+    ,
+  </ReduxProvider>,
 );
