@@ -8,26 +8,27 @@ import {
 import {
   DEFAULT_FIRST_GOLD,
   DEFAULT_FIRST_SILVER,
+  DEFAULT_SECOND_GOLD,
   ELITE_TYPE,
   FREE_ELEMENTS,
   ORDINARY_TYPE,
 } from "./constants";
 
 type TInitialState = {
+  sequence: string;
   mulliganCount: number;
   elementsSelected: string[];
   goldCrystal: number;
   silverCrystal: number;
-  divPrice: number;
   squad: TButtonCrystal[];
 };
 
 const initialState: TInitialState = {
+  sequence: "",
   mulliganCount: 0,
   elementsSelected: [],
   goldCrystal: DEFAULT_FIRST_GOLD,
   silverCrystal: DEFAULT_FIRST_SILVER,
-  divPrice: 0,
   squad: [],
 };
 
@@ -36,12 +37,12 @@ export const squadSlice = createSlice({
   initialState,
   reducers: {
     setSequence: (state, actions: PayloadAction<string>) => {
-      const sequence = actions.payload;
+      state.sequence = actions.payload;
 
-      if (sequence === "first") {
+      if (state.sequence === "first") {
         state.goldCrystal -= 1;
         state.silverCrystal -= 1;
-      } else if (sequence === "second") {
+      } else if (state.sequence === "second") {
         state.goldCrystal += 1;
         state.silverCrystal += 1;
       }
@@ -79,33 +80,33 @@ export const squadSlice = createSlice({
         state.goldCrystal -= priceEntity;
       }
 
-      if (path.includes(ORDINARY_TYPE)) {
-        if (state.silverCrystal - priceEntity < 0) {
-          state.divPrice += priceEntity - state.silverCrystal;
-          state.silverCrystal = 0;
-          state.goldCrystal -= state.divPrice;
-        } else state.silverCrystal -= priceEntity;
-      }
+      if (
+        path.includes(ORDINARY_TYPE) &&
+        state.silverCrystal - priceEntity <= 0
+      ) {
+        const divPrice = priceEntity - state.silverCrystal;
+        state.goldCrystal -= divPrice;
+        state.silverCrystal -= state.silverCrystal;
+      } else state.silverCrystal -= priceEntity;
     },
 
     deleteToSquad: (state, actions: PayloadAction<TButtonCrystal>) => {
       const priceEntity = actions.payload.value;
       const path = actions.payload.path;
+      const maxGoldQuantity =
+        state.sequence === "first" ? DEFAULT_FIRST_GOLD : DEFAULT_SECOND_GOLD;
       const currentEntity = state.squad.findIndex(
         (entity) =>
           entity.value === actions.payload.value &&
           actions.payload.path === entity.path,
       );
-
       if (path.includes(ELITE_TYPE)) state.goldCrystal += priceEntity;
-      if (path.includes(ORDINARY_TYPE)) {
-        if (state.silverCrystal + priceEntity > DEFAULT_FIRST_SILVER) {
-          state.goldCrystal += state.divPrice;
-          state.silverCrystal += priceEntity - state.divPrice;
-          state.divPrice = 0;
-        } else state.silverCrystal += priceEntity;
-      }
-
+      if (path.includes(ORDINARY_TYPE) && state.silverCrystal === 0) {
+        const divPrice = maxGoldQuantity - state.goldCrystal;
+        state.goldCrystal += divPrice;
+        if (state.goldCrystal === maxGoldQuantity)
+          state.silverCrystal = priceEntity - divPrice;
+      } else state.silverCrystal += priceEntity;
       state.squad.splice(currentEntity, 1);
     },
 

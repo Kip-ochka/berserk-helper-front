@@ -3,4 +3,4 @@ export const ELITE_TYPE = "elite";
 export const ORDINARY_TYPE = "ordinary";
 export const DEFAULT_FIRST_GOLD = 24;
 export const DEFAULT_FIRST_SILVER = 22;
-export const DEFAULT_FIRST_ALL = 46;
+export const DEFAULT_SECOND_GOLD = 25;
