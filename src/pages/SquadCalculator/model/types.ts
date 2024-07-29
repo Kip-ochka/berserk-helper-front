@@ -2,7 +2,7 @@ export enum TYPE_ELEMENT_VALUE {
   DARK = "dark",
   FORESTS = "forests",
   MOUNTAINS = "mountains",
-  NETURAL = "netural",
+  NEUTRAL = "neutral",
   SWAMPS = "swamps",
   PLAINS = "plains",
 }

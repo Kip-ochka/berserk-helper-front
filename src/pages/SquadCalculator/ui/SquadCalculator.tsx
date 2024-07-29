@@ -11,7 +11,7 @@ import {
 } from "@/store/squadSlice";
 
 import { ButtonCrystal } from "@/shared/ui/button-crystal/ui/ButtonCrystal";
-import { ElementCechkBox } from "@/shared/ui/element-checkbox";
+import { ElementCheckBox } from "@/shared/ui/element-checkbox";
 
 import Elite from "../../../shared/assets/crystal/icon-elite.png";
 import Ordinary from "../../../shared/assets/crystal/icon-ordinary.png";
@@ -20,10 +20,11 @@ import { TButtonCrystal } from "../model/types";
 import style from "./style.module.scss";
 
 export const SquadCalculator = () => {
-  const { mulligunCount, goldCrystal, silverCrystal, allCrystal, squad } =
+  const { mulliganCount, goldCrystal, silverCrystal, squad } =
     useSelector(squadSelectors);
 
   const dispatch = useDispatch();
+  const allCrystal = goldCrystal + silverCrystal;
 
   function handleSequenceCheck(event: React.ChangeEvent<HTMLInputElement>) {
     dispatch(setSequence(event.target.value));
@@ -91,7 +92,7 @@ export const SquadCalculator = () => {
               <button onClick={handleMinusClick} className={style.square}>
                 &minus;
               </button>
-              <p className={style.square}>{mulligunCount}</p>
+              <p className={style.square}>{mulliganCount}</p>
               <button onClick={handlePlusClick} className={style.square}>
                 &#43;
               </button>
@@ -104,7 +105,7 @@ export const SquadCalculator = () => {
           <h2 className={style.text}>Стихии</h2>
           <ul className={style.elements}>
             {elements.map((element, index) => (
-              <ElementCechkBox
+              <ElementCheckBox
                 key={index}
                 {...element}
                 onChange={handleElementCheck}

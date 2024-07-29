@@ -1,7 +1,13 @@
+li {
+  min-width: 35px;
+}
 .element {
-  min-width: 34px;
+  width: 100%;
   & img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     border-radius: 50%;
     border: 1px solid var(--purple-dark);
   }

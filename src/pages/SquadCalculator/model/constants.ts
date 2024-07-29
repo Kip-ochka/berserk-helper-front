@@ -1,7 +1,7 @@
 import DarkElement from "../../../shared/assets/elements/element-dark.png";
 import ForestsElement from "../../../shared/assets/elements/element-forests.png";
-import MointainsElement from "../../../shared/assets/elements/element-mountains.png";
-import Neturallement from "../../../shared/assets/elements/element-neutral.png";
+import MountainsElement from "../../../shared/assets/elements/element-mountains.png";
+import NeutralElement from "../../../shared/assets/elements/element-neutral.png";
 import PlainsElement from "../../../shared/assets/elements/element-plains.png";
 import SwampsElement from "../../../shared/assets/elements/element-swamps.png";
 import { TElement, TYPE_ELEMENT_VALUE } from "../model/types";
@@ -14,8 +14,8 @@ export const elements: TElement[] = [
   },
   {
     type: TYPE_ELEMENT_VALUE.MOUNTAINS,
-    path: MointainsElement,
-    alt: "Иконка   горной стихии",
+    path: MountainsElement,
+    alt: "Иконка горной стихии",
   },
   {
     type: TYPE_ELEMENT_VALUE.FORESTS,
@@ -33,8 +33,8 @@ export const elements: TElement[] = [
     alt: "Иконка темной стихии",
   },
   {
-    type: TYPE_ELEMENT_VALUE.NETURAL,
-    path: Neturallement,
+    type: TYPE_ELEMENT_VALUE.NEUTRAL,
+    path: NeutralElement,
     alt: "Иконка нейтральной стихии",
   },
 ];

@@ -6,7 +6,6 @@ import {
 } from "@/pages/SquadCalculator/model/types";
 
 import {
-  DEFAULT_FIRST_ALL,
   DEFAULT_FIRST_GOLD,
   DEFAULT_FIRST_SILVER,
   ELITE_TYPE,
@@ -15,21 +14,19 @@ import {
 } from "./constants";
 
 type TInitialState = {
-  mulligunCount: number;
-  elementsSelecteds: string[];
+  mulliganCount: number;
+  elementsSelected: string[];
   goldCrystal: number;
   silverCrystal: number;
-  allCrystal: number;
   divPrice: number;
   squad: TButtonCrystal[];
 };
 
 const initialState: TInitialState = {
-  mulligunCount: 0,
-  elementsSelecteds: [],
+  mulliganCount: 0,
+  elementsSelected: [],
   goldCrystal: DEFAULT_FIRST_GOLD,
   silverCrystal: DEFAULT_FIRST_SILVER,
-  allCrystal: DEFAULT_FIRST_ALL,
   divPrice: 0,
   squad: [],
 };
@@ -48,32 +45,27 @@ export const squadSlice = createSlice({
         state.goldCrystal += 1;
         state.silverCrystal += 1;
       }
-      state.allCrystal = state.goldCrystal + state.silverCrystal;
     },
 
     addElement: (state, actions: PayloadAction<string>) => {
-      if (actions.payload !== TYPE_ELEMENT_VALUE.NETURAL) {
-        state.elementsSelecteds.push(actions.payload);
-
-        const length = state.elementsSelecteds.length;
+      if (actions.payload !== TYPE_ELEMENT_VALUE.NEUTRAL) {
+        state.elementsSelected.push(actions.payload);
+        const length = state.elementsSelected.length;
 
         if (length > FREE_ELEMENTS) {
           state.goldCrystal -= 1;
-          state.allCrystal -= 1;
         }
       }
     },
 
     deleteElement: (state, actions: PayloadAction<string>) => {
-      const currentElement = state.elementsSelecteds.indexOf(actions.payload);
-      if (actions.payload !== TYPE_ELEMENT_VALUE.NETURAL) {
-        state.elementsSelecteds.splice(currentElement, 1);
-
-        const length = state.elementsSelecteds.length;
+      const currentElement = state.elementsSelected.indexOf(actions.payload);
+      if (actions.payload !== TYPE_ELEMENT_VALUE.NEUTRAL) {
+        state.elementsSelected.splice(currentElement, 1);
+        const length = state.elementsSelected.length;
 
         if (length >= FREE_ELEMENTS) {
           state.goldCrystal += 1;
-          state.allCrystal += 1;
         }
       }
     },
@@ -85,7 +77,6 @@ export const squadSlice = createSlice({
 
       if (path.includes(ELITE_TYPE)) {
         state.goldCrystal -= priceEntity;
-        state.allCrystal -= priceEntity;
       }
 
       if (path.includes(ORDINARY_TYPE)) {
@@ -94,7 +85,6 @@ export const squadSlice = createSlice({
           state.silverCrystal = 0;
           state.goldCrystal -= state.divPrice;
         } else state.silverCrystal -= priceEntity;
-        state.allCrystal -= priceEntity;
       }
     },
 
@@ -117,31 +107,18 @@ export const squadSlice = createSlice({
       }
 
       state.squad.splice(currentEntity, 1);
-      state.allCrystal += priceEntity;
     },
 
     incrementMulliganCount: (state) => {
-      state.mulligunCount += 1;
+      state.mulliganCount += 1;
       state.goldCrystal -= 1;
-      state.allCrystal -= 1;
     },
 
     decrementMulliganCount: (state) => {
-      if (state.mulligunCount > 0) {
-        state.mulligunCount -= 1;
+      if (state.mulliganCount > 0) {
+        state.mulliganCount -= 1;
         state.goldCrystal += 1;
-        state.allCrystal += 1;
       }
-    },
-
-    setGold: (state, actions: PayloadAction<number>) => {
-      state.goldCrystal = actions.payload;
-      state.allCrystal += state.goldCrystal;
-    },
-
-    setSilver: (state, actions: PayloadAction<number>) => {
-      state.silverCrystal = actions.payload;
-      state.allCrystal += state.silverCrystal;
     },
   },
   selectors: {
@@ -157,7 +134,5 @@ export const {
   deleteToSquad,
   incrementMulliganCount,
   decrementMulliganCount,
-  setGold,
-  setSilver,
 } = squadSlice.actions;
 export const { squadSelectors } = squadSlice.selectors;

@@ -24,6 +24,5 @@ ReactDOM.createRoot(root).render(
         <App />
       </React.StrictMode>
     </Provider>
-    ,
-  </ReduxProvider>,
+  </ReduxProvider>
 );

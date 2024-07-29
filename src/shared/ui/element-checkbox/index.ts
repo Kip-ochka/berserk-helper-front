@@ -1,1 +1,1 @@
-export { ElementCechkBox } from "./ui/ElementCheckBox";
+export { ElementCheckBox } from "./ui/ElementCheckBox";

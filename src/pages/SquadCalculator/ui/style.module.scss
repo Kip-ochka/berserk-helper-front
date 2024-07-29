@@ -6,6 +6,7 @@
   gap: 10px;
   font-family: serif;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .text {
@@ -37,6 +38,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
+  list-style: none;
 }
 
 .square {
@@ -83,4 +85,5 @@ button.square:active {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
+  list-style: none;
 }
