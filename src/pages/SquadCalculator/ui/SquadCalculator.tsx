@@ -108,10 +108,9 @@ export const SquadCalculator = () => {
         <div>
           <h2 className={style.text}>Стихии</h2>
           <ul className={style.elements}>
-            {elements.map((element) => {
-              const id = uuid()
+            {elements.map((element, index) => {
               return <ElementCheckBox
-                key={id}
+                key={index}
                 {...element}
                 onChange={handleElementCheck}
               />
