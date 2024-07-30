@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from "@/store";
+import { ChangeEvent } from "react";
+import {v4 as uuid} from "uuid";
 import {
   addElement,
   addToSquad,
@@ -19,14 +21,15 @@ import { buttonsCrystal, elements } from "../model/constants";
 import { TButtonCrystal } from "../model/types";
 import style from "./style.module.scss";
 
+
 export const SquadCalculator = () => {
-  const { mulliganCount, goldCrystal, silverCrystal, squad } =
+  const { mulliganCount, goldCrystal, silverCrystal, squad, sequence } =
     useSelector(squadSelectors);
 
   const dispatch = useDispatch();
   const allCrystal = goldCrystal + silverCrystal;
 
-  function handleSequenceCheck(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleSequenceCheck(event: ChangeEvent<HTMLInputElement>) {
     dispatch(setSequence(event.target.value));
   }
 
@@ -38,7 +41,7 @@ export const SquadCalculator = () => {
     dispatch(decrementMulliganCount());
   }
 
-  function handleElementCheck(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleElementCheck(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.checked) dispatch(addElement(event.target.value));
     else dispatch(deleteElement(event.target.value));
   }
@@ -67,7 +70,7 @@ export const SquadCalculator = () => {
                   name="sequence"
                   value="first"
                   onChange={handleSequenceCheck}
-                  defaultChecked
+                  checked={sequence==='first'}
                 />
                 <span className={style.square}>1</span>
               </label>
@@ -78,6 +81,7 @@ export const SquadCalculator = () => {
                   id="second"
                   name="sequence"
                   value="second"
+                  checked={sequence==='second'}
                   onChange={handleSequenceCheck}
                 />
                 <span className={style.square}>2</span>
@@ -104,13 +108,14 @@ export const SquadCalculator = () => {
         <div>
           <h2 className={style.text}>Стихии</h2>
           <ul className={style.elements}>
-            {elements.map((element, index) => (
-              <ElementCheckBox
-                key={index}
+            {elements.map((element) => {
+              const id = uuid()
+              return <ElementCheckBox
+                key={id}
                 {...element}
                 onChange={handleElementCheck}
               />
-            ))}
+            })}
           </ul>
         </div>
 
@@ -140,11 +145,12 @@ export const SquadCalculator = () => {
       {/* squad */}
       <section className={style.squad}>
         <ul className={style.list}>
-          {squad.map((entity, index) => (
-            <ButtonCrystal
+          {squad.map((entity) => {
+            const id = uuid()
+            return <ButtonCrystal
               value={entity.value}
               path={entity.path}
-              key={index}
+              key={id}
               onClick={() =>
                 handleEntityToSquadClick({
                   value: entity.value,
@@ -152,19 +158,20 @@ export const SquadCalculator = () => {
                 })
               }
             />
-          ))}
+          })}
         </ul>
       </section>
 
       {/* entity */}
       <section className={style.crystal}>
         <ul className={style.list}>
-          {buttonsCrystal.map((entity, index) => {
+          {buttonsCrystal.map((entity) => {
+            const id = uuid()
             return (
               <ButtonCrystal
                 value={entity}
                 path={Elite}
-                key={index}
+                key={id}
                 onClick={() =>
                   handleEntityClick({ value: entity, path: Elite })
                 }
@@ -174,12 +181,13 @@ export const SquadCalculator = () => {
         </ul>
 
         <ul className={style.list}>
-          {buttonsCrystal.map((entity, index) => {
+          {buttonsCrystal.map((entity) => {
+            const id = uuid()
             return (
               <ButtonCrystal
                 value={entity}
                 path={Ordinary}
-                key={index}
+                key={id}
                 onClick={() =>
                   handleEntityClick({ value: entity, path: Ordinary })
                 }

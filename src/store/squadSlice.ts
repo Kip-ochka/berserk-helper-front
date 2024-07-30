@@ -7,14 +7,14 @@ import {
 
 import {
   DEFAULT_FIRST_GOLD,
-  DEFAULT_FIRST_SILVER,
-  DEFAULT_SECOND_SILVER,
+  DEFAULT_FIRST_SILVER, DEFAULT_SECOND_SILVER,
   ELITE_TYPE,
   FREE_ELEMENTS,
   ORDINARY_TYPE,
 } from "./constants";
 
 type TInitialState = {
+  maxGoldValue: number
   sequence: string;
   mulliganCount: number;
   elementsSelected: string[];
@@ -28,6 +28,7 @@ const initialState: TInitialState = {
   mulliganCount: 0,
   elementsSelected: [],
   goldCrystal: DEFAULT_FIRST_GOLD,
+  maxGoldValue: DEFAULT_FIRST_GOLD,
   silverCrystal: DEFAULT_FIRST_SILVER,
   squad: [],
 };
@@ -40,9 +41,11 @@ export const squadSlice = createSlice({
       state.sequence = actions.payload;
 
       if (state.sequence === "first") {
+        state.maxGoldValue -= 1;
         state.goldCrystal -= 1;
         state.silverCrystal -= 1;
       } else if (state.sequence === "second") {
+        state.maxGoldValue += 1;
         state.goldCrystal += 1;
         state.silverCrystal += 1;
       }
@@ -55,6 +58,7 @@ export const squadSlice = createSlice({
 
         if (length > FREE_ELEMENTS) {
           state.goldCrystal -= 1;
+          state.maxGoldValue -= 1;
         }
       }
     },
@@ -67,6 +71,7 @@ export const squadSlice = createSlice({
 
         if (length >= FREE_ELEMENTS) {
           state.goldCrystal += 1;
+          state.maxGoldValue += 1;
         }
       }
     },
@@ -81,39 +86,50 @@ export const squadSlice = createSlice({
           const divPrice = priceEntity - state.silverCrystal;
           state.goldCrystal -= divPrice;
           state.silverCrystal -= state.silverCrystal;
-        } else state.silverCrystal -= priceEntity;
+        } else {
+          state.silverCrystal -= priceEntity;
+        }
       }
     },
 
     deleteToSquad: (state, actions: PayloadAction<TButtonCrystal>) => {
       const priceEntity = actions.payload.value;
       const path = actions.payload.path;
-      const maxSilverQuantity =
-        state.sequence === "first"
-          ? DEFAULT_FIRST_SILVER
-          : DEFAULT_SECOND_SILVER;
+      const maxSilverCrystal = state.sequence === "first" ? DEFAULT_FIRST_SILVER : DEFAULT_SECOND_SILVER;
       const currentEntity = state.squad.findIndex(
         (entity) => entity.value === priceEntity && entity.path === path,
       );
 
-      const currentSilverQuantity = state.squad.reduce((sum, entity) => {
-        if (entity.path.includes(ORDINARY_TYPE)) {
-          return (sum += entity.value);
+      const {
+        gold: occupiedGoldCrystal,
+        silver: occupiedSilverCrystal,
+      } = state.squad.reduce((sum, entity) => {
+        if (entity.path.includes(ELITE_TYPE)) {
+          sum.gold = sum.gold + entity.value;
+          return sum;
         }
+        sum.silver = sum.silver + entity.value;
         return sum;
-      }, 0);
+      }, { gold: 0, silver: 0 });
 
-      if (path.includes(ELITE_TYPE)) state.goldCrystal += priceEntity;
+      if (path.includes(ELITE_TYPE)) {
+        state.goldCrystal += priceEntity;
+      }
+
       if (path.includes(ORDINARY_TYPE)) {
-        if (state.silverCrystal === 0) {
-          if (currentSilverQuantity + priceEntity >= maxSilverQuantity) {
-            const divPrice = currentSilverQuantity - maxSilverQuantity;
-            state.goldCrystal += divPrice;
-            state.silverCrystal += priceEntity - divPrice;
-          }
-        } else state.silverCrystal += priceEntity;
+        if (occupiedSilverCrystal > maxSilverCrystal) {
+          const availableGoldToReturn = state.goldCrystal <= 0 ? state.maxGoldValue + Math.abs(state.goldCrystal) - occupiedGoldCrystal : state.maxGoldValue - occupiedGoldCrystal;
+          const goldToReturn = occupiedGoldCrystal + priceEntity > state.maxGoldValue ? availableGoldToReturn : priceEntity;
+          const silverToReturn = occupiedGoldCrystal + priceEntity > state.maxGoldValue ? priceEntity - availableGoldToReturn : 0;
+
+          state.goldCrystal += goldToReturn;
+          state.silverCrystal += silverToReturn;
+        } else {
+          state.silverCrystal += priceEntity;
+        }
       }
       state.squad.splice(currentEntity, 1);
+      return;
     },
 
     incrementMulliganCount: (state) => {
