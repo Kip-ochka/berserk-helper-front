@@ -8,7 +8,7 @@ import {
 import {
   DEFAULT_FIRST_GOLD,
   DEFAULT_FIRST_SILVER,
-  DEFAULT_SECOND_GOLD,
+  DEFAULT_SECOND_SILVER,
   ELITE_TYPE,
   FREE_ELEMENTS,
   ORDINARY_TYPE,
@@ -24,7 +24,7 @@ type TInitialState = {
 };
 
 const initialState: TInitialState = {
-  sequence: "",
+  sequence: "first",
   mulliganCount: 0,
   elementsSelected: [],
   goldCrystal: DEFAULT_FIRST_GOLD,
@@ -75,38 +75,44 @@ export const squadSlice = createSlice({
       const priceEntity = actions.payload.value;
       const path = actions.payload.path;
       state.squad.push(actions.payload);
-
-      if (path.includes(ELITE_TYPE)) {
-        state.goldCrystal -= priceEntity;
+      if (path.includes(ELITE_TYPE)) state.goldCrystal -= priceEntity;
+      if (path.includes(ORDINARY_TYPE)) {
+        if (state.silverCrystal - priceEntity < 0) {
+          const divPrice = priceEntity - state.silverCrystal;
+          state.goldCrystal -= divPrice;
+          state.silverCrystal -= state.silverCrystal;
+        } else state.silverCrystal -= priceEntity;
       }
-
-      if (
-        path.includes(ORDINARY_TYPE) &&
-        state.silverCrystal - priceEntity <= 0
-      ) {
-        const divPrice = priceEntity - state.silverCrystal;
-        state.goldCrystal -= divPrice;
-        state.silverCrystal -= state.silverCrystal;
-      } else state.silverCrystal -= priceEntity;
     },
 
     deleteToSquad: (state, actions: PayloadAction<TButtonCrystal>) => {
       const priceEntity = actions.payload.value;
       const path = actions.payload.path;
-      const maxGoldQuantity =
-        state.sequence === "first" ? DEFAULT_FIRST_GOLD : DEFAULT_SECOND_GOLD;
+      const maxSilverQuantity =
+        state.sequence === "first"
+          ? DEFAULT_FIRST_SILVER
+          : DEFAULT_SECOND_SILVER;
       const currentEntity = state.squad.findIndex(
-        (entity) =>
-          entity.value === actions.payload.value &&
-          actions.payload.path === entity.path,
+        (entity) => entity.value === priceEntity && entity.path === path,
       );
+
+      const currentSilverQuantity = state.squad.reduce((sum, entity) => {
+        if (entity.path.includes(ORDINARY_TYPE)) {
+          return (sum += entity.value);
+        }
+        return sum;
+      }, 0);
+
       if (path.includes(ELITE_TYPE)) state.goldCrystal += priceEntity;
-      if (path.includes(ORDINARY_TYPE) && state.silverCrystal === 0) {
-        const divPrice = maxGoldQuantity - state.goldCrystal;
-        state.goldCrystal += divPrice;
-        if (state.goldCrystal === maxGoldQuantity)
-          state.silverCrystal = priceEntity - divPrice;
-      } else state.silverCrystal += priceEntity;
+      if (path.includes(ORDINARY_TYPE)) {
+        if (state.silverCrystal === 0) {
+          if (currentSilverQuantity + priceEntity >= maxSilverQuantity) {
+            const divPrice = currentSilverQuantity - maxSilverQuantity;
+            state.goldCrystal += divPrice;
+            state.silverCrystal += priceEntity - divPrice;
+          }
+        } else state.silverCrystal += priceEntity;
+      }
       state.squad.splice(currentEntity, 1);
     },
 
