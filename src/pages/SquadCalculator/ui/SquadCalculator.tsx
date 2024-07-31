@@ -9,6 +9,7 @@ import {
   setSequence,
   squadSelectors,
 } from "@/store/squadSlice";
+import { nanoid } from "nanoid";
 
 import { ButtonCrystal } from "@/shared/ui/button-crystal/ui/ButtonCrystal";
 import { ElementCheckBox } from "@/shared/ui/element-checkbox";
@@ -140,19 +141,22 @@ export const SquadCalculator = () => {
       {/* squad */}
       <section className={style.squad}>
         <ul className={style.list}>
-          {squad.map((entity, index) => (
-            <ButtonCrystal
-              value={entity.value}
-              path={entity.path}
-              key={index}
-              onClick={() =>
-                handleEntityToSquadClick({
-                  value: entity.value,
-                  path: entity.path,
-                })
-              }
-            />
-          ))}
+          {squad.map((entity) => {
+            const id = nanoid();
+            return (
+              <ButtonCrystal
+                value={entity.value}
+                path={entity.path}
+                key={id}
+                onClick={() =>
+                  handleEntityToSquadClick({
+                    value: entity.value,
+                    path: entity.path,
+                  })
+                }
+              />
+            );
+          })}
         </ul>
       </section>
 

@@ -92,6 +92,7 @@ export const squadSlice = createSlice({
         state.sequence === "first"
           ? DEFAULT_FIRST_SILVER
           : DEFAULT_SECOND_SILVER;
+
       const currentEntity = state.squad.findIndex(
         (entity) => entity.value === priceEntity && entity.path === path,
       );
@@ -105,11 +106,13 @@ export const squadSlice = createSlice({
 
       if (path.includes(ELITE_TYPE)) state.goldCrystal += priceEntity;
       if (path.includes(ORDINARY_TYPE)) {
-        if (state.silverCrystal === 0) {
-          if (currentSilverQuantity + priceEntity >= maxSilverQuantity) {
-            const divPrice = currentSilverQuantity - maxSilverQuantity;
-            state.goldCrystal += divPrice;
-            state.silverCrystal += priceEntity - divPrice;
+        if (currentSilverQuantity >= maxSilverQuantity) {
+          const returnGold = currentSilverQuantity - maxSilverQuantity;
+          if (returnGold > priceEntity) {
+            state.goldCrystal += priceEntity;
+          } else {
+            state.goldCrystal += returnGold;
+            state.silverCrystal += priceEntity - returnGold;
           }
         } else state.silverCrystal += priceEntity;
       }
